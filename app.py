@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load trained model
-model = pickle.load(open("ipl_model.pkl", "rb"))
+model = pickle.load(open("model.pkl", "rb"))
 
 st.title("🏏 IPL Score Predictor")
 
