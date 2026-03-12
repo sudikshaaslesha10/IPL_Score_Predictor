@@ -51,7 +51,7 @@ if st.button("Predict Score"):
                           balls_bowled,
                           wickets_fallen,
                           runs_last_30,
-                          wickets_last_30]])
+                          wickets_last_30]], dtype=float)
 
     prediction = model.predict(features)
 
