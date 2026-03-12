@@ -3,41 +3,50 @@ import streamlit as st
 import joblib
 import numpy as np
 
-# Load model
+# Load trained model
 model = joblib.load("model.pkl")
 
-st.title("IPL Score Predictor")
+st.title("🏏 IPL Score Predictor")
 
+# Current IPL Teams
 teams = [
-"Chennai Super Kings",
-"Delhi Capitals",
-"Kings XI Punjab",
-"Kolkata Knight Riders",
-"Mumbai Indians",
-"Rajasthan Royals",
-"Royal Challengers Bangalore",
-"Sunrisers Hyderabad"
+'Chennai Super Kings',
+'Delhi Capitals',
+'Gujarat Titans',
+'Kolkata Knight Riders',
+'Lucknow Super Giants',
+'Mumbai Indians',
+'Punjab Kings',
+'Rajasthan Royals',
+'Royal Challengers Bengaluru',
+'Sunrisers Hyderabad'
 ]
 
+# Team encoding
+team_encoding = {team:i for i,team in enumerate(teams)}
+
+# Team selection
 batting_team = st.selectbox("Batting Team", teams)
 bowling_team = st.selectbox("Bowling Team", teams)
 
-# Overs and balls
-overs = st.number_input("Overs Completed", min_value=0, max_value=19, step=1)
-balls = st.selectbox("Balls in current over", [0,1,2,3,4,5])
+# Match inputs
+current_score = st.number_input("Current Score",0)
+overs = st.number_input("Overs Completed",0,19)
+balls = st.selectbox("Balls in Current Over",[0,1,2,3,4,5])
 
 balls_bowled = overs*6 + balls
 
-current_score = st.number_input("Current Score",0)
 wickets_fallen = st.number_input("Wickets Fallen",0,10)
-
 runs_last_30 = st.number_input("Runs in Last 30 Balls",0)
 wickets_last_30 = st.number_input("Wickets in Last 30 Balls",0)
 
 if st.button("Predict Score"):
 
-    features = np.array([[batting_team,
-                          bowling_team,
+    batting_team_encoded = team_encoding[batting_team]
+    bowling_team_encoded = team_encoding[bowling_team]
+
+    features = np.array([[batting_team_encoded,
+                          bowling_team_encoded,
                           current_score,
                           balls_bowled,
                           wickets_fallen,
@@ -46,4 +55,4 @@ if st.button("Predict Score"):
 
     prediction = model.predict(features)
 
-    st.success(f"Predicted Score: {int(prediction[0])}")
+    st.success(f"Predicted Final Score: {int(prediction[0])}")
