@@ -1,51 +1,47 @@
+# app.py
 import streamlit as st
-import pandas as pd
 import pickle
+import os
 
-# Load trained model
-model = pickle.load(open("model.pkl", "rb"))
+# -----------------------------
+# 1. Load the model safely
+# -----------------------------
+# Local path (Windows)
+local_model_path = r"C:\Users\Sudiksha Aslesha\ipl_score_predictor\model.pkl"
 
-st.title("🏏 IPL Score Predictor")
+# Streamlit / Hugging Face: if deployed, assume model is in the repo root
+deployed_model_path = "model.pkl"
 
-st.write("Predict the final score of the first innings")
+# Choose correct path
+if os.path.exists(local_model_path):
+    model_path = local_model_path
+elif os.path.exists(deployed_model_path):
+    model_path = deployed_model_path
+else:
+    st.error("Model file not found. Please check the path!")
+    st.stop()
 
-# Team list
-teams = [
-'Chennai Super Kings',
-'Mumbai Indians',
-'Royal Challengers Bangalore',
-'Kolkata Knight Riders',
-'Delhi Capitals',
-'Sunrisers Hyderabad',
-'Rajasthan Royals',
-'Punjab Kings'
-]
+# Load the model
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
 
-# UI Inputs
-batting_team = st.selectbox("Batting Team", teams)
-bowling_team = st.selectbox("Bowling Team", teams)
+# -----------------------------
+# 2. Streamlit app UI
+# -----------------------------
+st.title("IPL Score Predictor")
 
-current_score = st.number_input("Current Score", min_value=0)
+st.write("Enter match details to predict the final IPL score:")
 
-balls_bowled = st.number_input("Balls Bowled", min_value=0, max_value=120)
+# Example input fields
+team1 = st.selectbox("Select Batting Team", ["Mumbai Indians", "Chennai Super Kings", "RCB", "KKR"])
+team2 = st.selectbox("Select Bowling Team", ["Mumbai Indians", "Chennai Super Kings", "RCB", "KKR"])
+overs = st.number_input("Overs Completed", min_value=0.0, max_value=20.0, step=0.1)
+runs = st.number_input("Current Runs", min_value=0, step=1)
+wickets = st.number_input("Wickets Lost", min_value=0, max_value=10, step=1)
 
-wickets = st.number_input("Wickets Fallen", min_value=0, max_value=10)
-
-runs_last_30 = st.number_input("Runs in Last 5 Overs", min_value=0)
-
-wickets_last_30 = st.number_input("Wickets in Last 5 Overs", min_value=0, max_value=10)
-
-# Prediction button
+# Predict button
 if st.button("Predict Score"):
-
-    input_data = pd.DataFrame({
-        'current_score':[current_score],
-        'balls_bowled':[balls_bowled],
-        'wickets':[wickets],
-        'runs_last_30':[runs_last_30],
-        'wickets_last_30':[wickets_last_30]
-    })
-
-    prediction = model.predict(input_data)
-
-    st.success(f"Predicted Final Score: {int(prediction[0])}")
+    # Replace this with actual feature preprocessing
+    features = [[overs, runs, wickets]]  # Example: simple numeric input
+    predicted_score = model.predict(features)[0]
+    st.success(f"Predicted Final Score: {int(predicted_score)}")
