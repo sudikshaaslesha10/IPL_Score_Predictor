@@ -39,8 +39,6 @@ wickets = st.number_input("Wickets Lost",0,10)
 
 if st.button("Predict Score"):
 
-    if st.button("Predict Score"):
-
     features = np.array([[batting_team,
                           bowling_team,
                           current_score,
