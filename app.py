@@ -24,7 +24,16 @@ teams = [
 batting_team = st.selectbox("Batting Team", teams)
 bowling_team = st.selectbox("Bowling Team", teams)
 
-overs = st.number_input("Overs Completed",0.0,20.0)
+# Overs completed
+overs = st.number_input("Overs Completed", min_value=0, max_value=19, step=1)
+
+# Balls in current over
+balls = st.selectbox("Balls in current over", [1,2,3,4,5,6])
+
+# Display cricket format
+cricket_overs = f"{overs}.{balls}"
+
+st.write("Overs Entered:", cricket_overs)
 runs = st.number_input("Current Runs",0)
 wickets = st.number_input("Wickets Lost",0,10)
 
