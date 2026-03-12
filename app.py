@@ -39,8 +39,17 @@ wickets = st.number_input("Wickets Lost",0,10)
 
 if st.button("Predict Score"):
 
-    features = np.array([[overs,runs,wickets]])
+    if st.button("Predict Score"):
+
+    features = np.array([[batting_team,
+                          bowling_team,
+                          current_score,
+                          balls_bowled,
+                          wickets_fallen,
+                          runs_last_30,
+                          wickets_last_30]])
 
     prediction = model.predict(features)
 
-    st.success(f"Predicted Final Score: {int(prediction[0])}")
+    st.success(f"Predicted Score: {int(prediction[0])}")
+
