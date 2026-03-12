@@ -8,7 +8,6 @@ model = joblib.load("model.pkl")
 
 st.title("IPL Score Predictor")
 
-# Team list
 teams = [
 "Chennai Super Kings",
 "Delhi Capitals",
@@ -20,22 +19,20 @@ teams = [
 "Sunrisers Hyderabad"
 ]
 
-# Team selection
 batting_team = st.selectbox("Batting Team", teams)
 bowling_team = st.selectbox("Bowling Team", teams)
 
-# Overs completed
+# Overs and balls
 overs = st.number_input("Overs Completed", min_value=0, max_value=19, step=1)
+balls = st.selectbox("Balls in current over", [0,1,2,3,4,5])
 
-# Balls in current over
-balls = st.selectbox("Balls in current over", [1,2,3,4,5,6])
+balls_bowled = overs*6 + balls
 
-# Display cricket format
-cricket_overs = f"{overs}.{balls}"
+current_score = st.number_input("Current Score",0)
+wickets_fallen = st.number_input("Wickets Fallen",0,10)
 
-st.write("Overs Entered:", cricket_overs)
-runs = st.number_input("Current Runs",0)
-wickets = st.number_input("Wickets Lost",0,10)
+runs_last_30 = st.number_input("Runs in Last 30 Balls",0)
+wickets_last_30 = st.number_input("Wickets in Last 30 Balls",0)
 
 if st.button("Predict Score"):
 
@@ -50,4 +47,3 @@ if st.button("Predict Score"):
     prediction = model.predict(features)
 
     st.success(f"Predicted Score: {int(prediction[0])}")
-
