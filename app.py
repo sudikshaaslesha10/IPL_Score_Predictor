@@ -1,8 +1,7 @@
 
 import streamlit as st
-import joblib
 import numpy as np
-
+from sklearn.externals import joblib
 # Load trained model
 model = joblib.load("model.pkl")
 
