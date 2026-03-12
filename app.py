@@ -1,14 +1,12 @@
 
 import streamlit as st
-import pickle
+import joblib
 import numpy as np
 
 # Load model
-model = pickle.load(open("model.pkl","rb"))
+model = joblib.load("model.pkl")
 
 st.title("IPL Score Predictor")
-
-st.write("Enter match details")
 
 overs = st.number_input("Overs Completed",0.0,20.0)
 runs = st.number_input("Current Runs",0)
