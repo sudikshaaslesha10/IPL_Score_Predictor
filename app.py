@@ -1,8 +1,9 @@
 
 import streamlit as st
 import numpy as np
-from sklearn.externals import joblib
+import joblib
 # Load trained model
+
 model = joblib.load("model.pkl")
 
 st.title("🏏 IPL Score Predictor")
