@@ -4,7 +4,11 @@ import numpy as np
 import joblib
 # Load trained model
 
-model = joblib.load("model.pkl")
+@st.cache_resource
+def load_model():
+    return joblib.load("model.pkl")
+
+model = load_model()
 
 st.title("🏏 IPL Score Predictor")
 
