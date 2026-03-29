@@ -3,15 +3,9 @@ import streamlit as st
 import numpy as np
 import joblib
 # Load trained model
-@st.cache_resource
-def load_model():
-    try:
-        return joblib.load("model.pkl")
-    except Exception as e:
-        st.error("Model failed to load. Please check sklearn version.")
-        st.stop()
 
-model = load_model()
+model = joblib.load("model.pkl")
+
 st.title("🏏 IPL Score Predictor")
 
 # Current IPL Teams
