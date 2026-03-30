@@ -1,4 +1,3 @@
-# IPL_Score_Predictor
 # 🏏 IPL Score Predictor
 
 A machine learning web app that predicts the final score of an IPL innings in real time — built with Python, Scikit-learn, and Streamlit.
