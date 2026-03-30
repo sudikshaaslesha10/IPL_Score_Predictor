@@ -2,7 +2,7 @@
 
 A machine learning web app that predicts the final score of an IPL innings in real time — built with Python, Scikit-learn, and Streamlit.
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python) ![Streamlit](https://img.shields.io/badge/Streamlit-1.40%2B-red?logo=streamlit) ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.4%2B-orange?logo=scikit-learn) ![License](https://img.shields.io/badge/License-MIT-green)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python) ![Streamlit](https://img.shields.io/badge/Streamlit-1.40%2B-red?logo=streamlit) ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.4%2B-orange?logo=scikit-learn) !
 
 ---
 
